@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowmeter</title>
+    <link rel="stylesheet" href="flowmeter.css">
+</head>
+
+<body>
+    <div class="flowmeter-container">
+        <div class="flowmeter-text">
+            <div class="static">Speed</div>
+            <div class="dynamic">
+                <span class="km">0</span>
+                <span class="unit">KMPH</span>
+            </div>
+        </div>
+        <div class="center-point"></div>
+        <div class="flowmeter-center-hide"></div>
+        <div class="flowmeter-bottom-hide"></div>
+
+        <div class="arrow-container">
+            <div class="arrow-wrapper speed-0">
+                <div class="arrow">
+
+                </div>
+            </div>
+        </div>
+        <div class="flowmeter-scale flowmeter-scale-1 active"></div>
+        <div class="flowmeter-scale flowmeter-scale-2"></div>
+        <div class="flowmeter-scale flowmeter-scale-3"></div>
+        <div class="flowmeter-scale flowmeter-scale-4"></div>
+        <div class="flowmeter-scale flowmeter-scale-5"></div>
+        <div class="flowmeter-scale flowmeter-scale-6"></div>
+        <div class="flowmeter-scale flowmeter-scale-7"></div>
+        <div class="flowmeter-scale flowmeter-scale-8"></div>
+        <div class="flowmeter-scale flowmeter-scale-9"></div>
+        <div class="flowmeter-scale flowmeter-scale-10"></div>
+        <div class="flowmeter-scale flowmeter-scale-11"></div>
+        <div class="flowmeter-scale flowmeter-scale-12"></div>
+        <div class="flowmeter-scale flowmeter-scale-13"></div>
+        <div class="flowmeter-scale flowmeter-scale-14"></div>
+        <div class="flowmeter-scale flowmeter-scale-15"></div>
+        <div class="flowmeter-scale flowmeter-scale-16"></div>
+        <div class="flowmeter-scale flowmeter-scale-17"></div>
+        <div class="flowmeter-scale flowmeter-scale-18"></div>
+        <div class="flowmeter-scale flowmeter-scale-19"></div>
+    </div>
+    <div class="accelerate-container">
+        <button class="increase" onclick="increaseSpeed()">Increase Speed</button>
+        <button class="decrease" onclick="decreaseSpeed()">Decrease Speed</button>
+    </div>
+</body>
+<script>
+    let speed = 0;
+    let prevSpeed = 0;
+    let currentScale = 1;
+
+    function increaseSpeed() {
+        if (speed < 180) {
+            speed += 10;
+            addClass();
+            currentScale += 1;
+            changeActive();
+            changeText();
+        }
+    }
+
+    function decreaseSpeed() {
+        if (speed > 0) {
+            speed -= 10;
+            addClass();
+            changeActive();
+            currentScale -= 1;
+            changeText();
+        }
+    }
+
+    function addClass() {
+        let newClass = "speed-" + speed;
+        let prevClass = "speed-" + prevSpeed;
+        let el = document.getElementsByClassName('arrow-wrapper')[0];
+        if (el.classList.contains(prevClass)) {
+            el.classList.remove(prevClass);
+            el.classList.add(newClass);
+        }
+        prevSpeed = speed;
+    }
+
+    function changeActive() {
+        let tempClass = "flowmeter-scale-" + currentScale;
+        let el = document.getElementsByClassName(tempClass)[0];
+        el.classList.toggle("active");
+    }
+
+    function changeText() {
+        let el = document.getElementsByClassName("km")[0];
+        el.innerText = speed;
+    }
+
+</script>
+
+</html>
